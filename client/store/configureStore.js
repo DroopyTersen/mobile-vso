@@ -1,5 +1,4 @@
 import { createStore, applyMiddleware } from 'redux'
-import thunkMiddleware from 'redux-thunk'
 import { promiseMiddleware } from '../_utils/middleware';
 import createLogger from 'redux-logger'
 import rootReducer from '../reducers'
