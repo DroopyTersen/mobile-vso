@@ -26,13 +26,18 @@
   },
   "homepage": "http://rackt.github.io/redux",
   "dependencies": {
+    "bluebird": "^3.0.5",
+    "flux-standard-action": "^0.6.0",
     "isomorphic-fetch": "^2.1.1",
     "material-ui": "^0.13.2",
+    "q": "^1.4.1",
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
     "react-redux": "^4.0.0",
     "redux": "^3.0.0",
+    "redux-actions": "^0.8.0",
     "redux-logger": "^2.0.2",
+    "redux-promise": "^0.5.0",
     "redux-thunk": "^0.1.0"
   },
   "devDependencies": {
