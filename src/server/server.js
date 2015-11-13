@@ -23,6 +23,7 @@ var setupPassport 	= require("./passport");
 setupPassport(passport);
 
 app.use(bodyParser()); // get information from html forms
+app.use('/static', express.static('../../dist'))
 
 //AUTHENTICATION 
 app.use(cookieParser()); // read cookies (needed for auth)
@@ -30,7 +31,6 @@ app.use(session({ secret: 'shhhhhhh' })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
-
 // WEBPACK DEV SERVER
 var compiler = webpack(config);
 app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }));

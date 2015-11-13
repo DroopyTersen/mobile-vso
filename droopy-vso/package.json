@@ -1,0 +1,16 @@
+{
+  "name": "droopy-vso",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Andrew Petersen",
+  "license": "ISC",
+  "dependencies": {
+    "droopy-http": "0.0.1",
+    "lodash": "^3.10.1",
+    "request-promise": "^1.0.2"
+  }
+}

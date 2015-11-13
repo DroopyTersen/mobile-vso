@@ -9,7 +9,6 @@ var initialState    = require('../store/initialState')
 var rootReducer		= require('../reducers')
 var App             = require('../components/App')
 
-
 var setState = function(prevState, newState) {
 	return Object.assign({}, prevState, newState);
 }
@@ -19,20 +18,22 @@ exports.indexPage = function(req, res) {
 	api.getMyTasks().then( tasks => {
 		res.send(serverSideReact({ 
 			view: "myTasks", 
-			myTasks: tasks, 
-			isServer: true 
+			myTasks: tasks
 		}));
 	})
 }
  
 exports.loginPage = function(req, res) {
-	res.send(serverSideReact({ view: "login" }));
+	var state = { view: "login" };
+	if (req.query.failed === "true") {
+		state.viewBag = { loginFailed: true };
+	}
+	res.send(serverSideReact(state));
 }
 
 var serverSideReact = function(pageState) {
 	var state = setState(initialState, pageState);
-	state.isServer = true;
-	console.log(rootReducer);
+	state.viewBag.isServer = true;
 	var store = createStore(rootReducer, state);
 	
 	const html = renderToString(
@@ -42,7 +43,8 @@ var serverSideReact = function(pageState) {
 	);
 
 	// Grab the initial state from our Redux store after reducers
-	var reducedState = store.getState()
+	var reducedState = store.getState();
+	
 	// Send the rendered page back to the client
 	return renderFullPage(html, reducedState);
 };
@@ -64,6 +66,7 @@ var renderFullPage = function(html, initialState) {
 			<script>
 				window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}
 			</script>
+
 			<script src="/static/bundle.js"></script>
 		</body>
 	

@@ -6,16 +6,17 @@ var { connect } 	= require('react-redux')
 var { pageLoaded } 	= require('../actions/uiActions')
 
 var selectState = function(state) {
-	return { view: state.view };
+	return { view: state.view, viewBag: state.viewBag };
 };
 
 class App extends React.Component {
 	
 	renderView() {
 		var currentView = this.props.view;
+		var viewBag = this.props.viewBag || {};
 		var views = {
-			myTasks: <MyTasks />,
-			login: <LoginForm />
+			myTasks: <MyTasks viewBag={viewBag} />,
+			login: <LoginForm viewBag={viewBag} />
 		};		
 		return views[currentView] || `<h1>${currentView} view not found</h1>`	
 	}

@@ -1,5 +1,6 @@
  var LocalStrategy = require("passport-local");
- 
+ var vsoFactory = require('../../droopy-vso');
+
  var setupPassport = function(passport) {
 
      passport.serializeUser((user, done) => done(null, user.authHash));
@@ -10,7 +11,12 @@
 
     var authHashCreator = (user, pwd, done) => {
         var authHash = new Buffer(user + ":" + pwd).toString('base64');
-        return done(null, { authHash })
+        vsoFactory.create(authHash).projects()
+        	.then(projects => {
+                return (projects && projects.value) ? done(null, { authHash }) : done(null, false);
+            })
+        	.catch(error => done(error, false) )
+        
     }
     
     passport.use(new LocalStrategy(authHashCreator))

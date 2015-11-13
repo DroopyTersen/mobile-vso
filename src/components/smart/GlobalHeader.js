@@ -6,7 +6,7 @@ var { navigate }    = require('../../actions/uiActions');
 var { LeftNav }     = require('material-ui');
 
 var selectState = function(state) {
-	return { leftMenu: state.leftMenu, isServer: state.isServer };
+	return { leftMenu: state.leftMenu, viewBag: state.viewBag };
 };
 
 class GlobalHeader extends React.Component {
@@ -31,7 +31,7 @@ class GlobalHeader extends React.Component {
 
     renderLeftNav() {
         console.log(this.props);
-        if (!this.props.isServer) {
+        if (!this.props.viewBag.isServer) {
             return <LeftNav
                         ref='leftNav'
                         docked={false}

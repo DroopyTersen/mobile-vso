@@ -9,13 +9,13 @@ var view = function(state, action) {
 	return state;
 };
 
-var isServer = function(state, action) {
-	if (state === undefined) {
-		state = false;
+var viewBag = function(state, action) {
+	state = state || {};
+	if (action.type === actions.ui.pageLoaded.type) {
+		return Object.assign({}, state, { isServer: false });
 	}
-	if (action.type === actions.ui.pageLoaded.type) return false;
 	return state;
-};
+}
 
 var leftMenu = function(state, action) {
 	return state || {};
@@ -32,7 +32,7 @@ var myTasks = function(state, action) {
 };
 
 const rootReducer = combineReducers({
-	isServer,
+	viewBag,
 	leftMenu,
 	view,
 	myTasks

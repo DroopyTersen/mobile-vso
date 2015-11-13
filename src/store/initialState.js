@@ -1,6 +1,6 @@
 module.exports = {
-	isServer: false,
 	view: "myTasks",
+	viewBag: {},
 	myTasks: [],
 	leftMenu: {
 		items: [
