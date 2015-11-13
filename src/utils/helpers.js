@@ -1,4 +1,4 @@
-export function stringToColor(str) {
+exports.stringToColor = function(str) {
 	// str to hash
 	for (var i = 0, hash = 0; i < str.length; hash = str.charCodeAt(i++) + ((hash << 5) - hash));
 	// int/hash to hex

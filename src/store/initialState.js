@@ -1,4 +1,5 @@
-export default {
+module.exports = {
+	isServer: false,
 	view: "myTasks",
 	myTasks: [],
 	leftMenu: {

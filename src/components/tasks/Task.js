@@ -1,15 +1,19 @@
-import React from 'react'
-import mui from 'material-ui';
-import { stringToColor } from '../../utils/helpers';
+var React           	= require('react')
+var mui             	= require('material-ui')
+var { stringToColor } 	= require('../../utils/helpers')
 
 var { Card, CardActions, CardExpandable, 
-		CardHeader, CardText, Avatar, FlatButton } = mui;
+	CardHeader, CardText, Avatar, FlatButton } = mui;
 
-export default class Task extends React.Component {
-
+class Task extends React.Component {
 
 	renderAvatar(task) {
-		return <Avatar style={{color: stringToColor(task.area) }}>{task.area[0]}</Avatar> 
+		return (
+			<Avatar 
+				style={{color: stringToColor(task.area) }}>
+				{task.area[0]}
+			</Avatar>
+		); 
 	}
 
 	render() {
@@ -47,6 +51,7 @@ export default class Task extends React.Component {
 			 
 			</Card>
 		);
-    
   	}
 }
+
+module.exports = Task;

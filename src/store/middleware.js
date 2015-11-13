@@ -1,10 +1,10 @@
-import { isFSA } from 'flux-standard-action';
+var { isFSA } = require('flux-standard-action')
 
 var isPromise = function(obj) {
 	return obj && typeof obj.then === 'function';
 }
 
-export var promiseMiddleware = function( { dispatch }) {
+exports.promiseMiddleware = function({ dispatch }) {
 	return next => action => {
 		// If its a promise, wait for it to resolve and dispatch more stuff
 		if (isPromise(action.payload)) {

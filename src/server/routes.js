@@ -1,13 +1,10 @@
-var reactPages = require('./reactPages');
+var { indexPage, loginPage } = require('./reactPages');
 
 var createRoutes = function(app, passport) {
     
-    app.get("/", authorize, function(req, res) {
-        res.sendFile(__dirname + '/src/pages/index.html')
-    })
-    
-        
-    app.get("/login", reactPages.login);
+    // React server side rendered pages
+    app.get("/", authorize, indexPage)
+    app.get("/login", loginPage);
     
     var redirects = { successRedirect: "/", failureRedirect: "/login" }
     app.post('/login', passport.authenticate('local', redirects));
@@ -17,10 +14,10 @@ var createRoutes = function(app, passport) {
         res.redirect("/login");
     });
     
-    
+    // Middle ware to enforce signin
     function authorize(req, res, next) {
         return req.isAuthenticated() ? next() : res.redirect("/login");
-    }
+    } 
 }
 
 module.exports = createRoutes;

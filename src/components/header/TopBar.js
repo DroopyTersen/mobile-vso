@@ -1,19 +1,17 @@
-import React from 'react';
-
-import mui from 'material-ui';
-var { AppBar } = mui;
+var React           = require('react')
+var { AppBar }      = require('material-ui')
 
 class TopBar extends React.Component {
-    render() {
-        return (
-        	<header>
-	        	<AppBar
-	        		title={this.props.title}
-	        		onLeftIconButtonTouchTap={this.props.menuHandler}
-	        	/>
-        	</header>
-    	);
-    }
+	render() {
+		return (
+			<header>
+				<AppBar
+					title={this.props.title}
+					onLeftIconButtonTouchTap={this.props.menuHandler}
+				/>
+			</header>
+		);
+	}
 }
 
-export default TopBar;
+module.exports = TopBar;

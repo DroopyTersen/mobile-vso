@@ -2,7 +2,7 @@ var returnMe = function(me) {
 	return me;
 };
 
-export var createAction = (type, apiCall) => {
+exports.createAction = (type, apiCall) => {
 	var payloadCreator = typeof apiCall === 'function' ? apiCall : returnMe
 
     var actionFunc = function(...args) { 

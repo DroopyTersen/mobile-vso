@@ -1,26 +1,25 @@
-import { createStore, applyMiddleware } from 'redux';
-import { promiseMiddleware } from './middleware';
-import createLogger from 'redux-logger';
-import rootReducer from '../reducers';
-import initialState from './initialState';
+var { createStore, applyMiddleware } 	= require('redux')
+var { promiseMiddleware } 				= require('./middleware')
 
-var createStoreWithMiddleware = applyMiddleware(
-	promiseMiddleware, 
-	createLogger())
-(createStore);
+var createLogger 	= require('redux-logger')
+var rootReducer 	= require('../reducers')
+var initialState 	= require('./initialState')
 
-export default function configureStore(state) {
+var createStoreWithMiddleware = applyMiddleware( promiseMiddleware, createLogger() )(createStore);
+
+function configureStore(state) {
 	state = state || initialState;
 	const store = createStoreWithMiddleware(rootReducer, state)
 
 	if (module.hot) {
 	  // Enable Webpack hot module replacement for reducers
-	  module.hot.accept('../reducers', () => {
-	    const nextRootReducer = require('../reducers')
-	    store.replaceReducer(nextRootReducer)
-	  })
+	  	module.hot.accept('../reducers', () => {
+	    	const nextRootReducer = require('../reducers')
+	    	store.replaceReducer(nextRootReducer)
+	  	})
 	}
 
 	return store;
 }
- 
+
+module.exports = configureStore;

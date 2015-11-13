@@ -1,3 +1,4 @@
-import { createAction } from './actionUtils';
+var { createAction } = require('./actionUtils');
 
-export const navigate = createAction("SWITCH_VIEW");
+exports.navigate = createAction("SWITCH_VIEW");
+exports.pageLoaded = createAction("PAGE_LOADED");

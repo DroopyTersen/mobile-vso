@@ -1,11 +1,41 @@
 var path = require('path')
 var webpack = require('webpack')
 
+// module.exports = {
+//   devtool: 'cheap-module-eval-source-map',
+//   entry: [
+//     'webpack-hot-middleware/client',
+//     './src/client'
+//   ],
+//   output: {
+//     path: path.join(__dirname, 'dist'),
+//     filename: 'bundle.js',
+//     publicPath: '/static/'
+//   },
+//   plugins: [
+//     new webpack.optimize.OccurenceOrderPlugin(),
+//     new webpack.HotModuleReplacementPlugin(),
+//     new webpack.NoErrorsPlugin()
+//   ],
+//   module: {
+//     loaders: [{
+//       test: /\.js$/,
+//       loaders: ['babel'],
+//       exclude: /node_modules/,
+//       include: __dirname
+//     }, {
+//       test: /\.css?$/,
+//       loaders: [ 'style', 'raw' ],
+//       include: __dirname
+//     }]
+//   }
+// }
+
 module.exports = {
-  devtool: 'cheap-module-eval-source-map',
   entry: [
+    "babel-polyfill",
     'webpack-hot-middleware/client',
-    './src/client'
+    "./src/client/client.js"
   ],
   output: {
     path: path.join(__dirname, 'dist'),
@@ -17,12 +47,18 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()
   ],
+  debug: true,
+  devtool: 'source-map',
   module: {
     loaders: [{
-      test: /\.js$/,
-      loaders: ['babel'],
+      test: /\.jsx?$/,
+      loader: 'babel-loader',
       exclude: /node_modules/,
-      include: __dirname
+      include: path.join(__dirname, "src"),
+      query: {
+        plugins: ['transform-runtime'],
+        presets: ['es2015', 'stage-0', 'react'],
+      }
     }, {
       test: /\.css?$/,
       loaders: [ 'style', 'raw' ],
@@ -30,4 +66,3 @@ module.exports = {
     }]
   }
 }
-

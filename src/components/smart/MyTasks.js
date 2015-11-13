@@ -1,14 +1,13 @@
-import React from 'react'
-import TaskList from '../tasks/TaskList'
-import {connect} from 'react-redux';
-import * as actions from '../../actions';
+var React           = require('react')
+var TaskList 		= require('../tasks/TaskList')
+var { connect }     = require('react-redux')
+var actions 		= require('../../actions');
 
 var selectState = (state) => { 
   return { tasks: state.myTasks }
 }
 
-@connect(selectState)
-export default class MyTasks extends React.Component {
+class MyTasks extends React.Component {
 	
 	componentDidMount() {
     	this.props.dispatch(actions.api.fetchMyTasks());
@@ -22,3 +21,5 @@ export default class MyTasks extends React.Component {
 		);
   	}
 }
+
+module.exports = connect(selectState)(MyTasks);

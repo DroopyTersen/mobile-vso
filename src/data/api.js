@@ -1,8 +1,6 @@
-var Api = function(url) {
-	this.url = url || "";
-}; 
-
-Api.prototype.getMyTasks = function() {
+var api = {};
+api.getMyTasks = function() {
+	console.log("HERE");
 	return fakeAsync(tasks);
 }; 
 
@@ -45,4 +43,4 @@ var tasks = [
 		}
 ];
 
-export default Api;
+module.exports = api;

@@ -1,20 +1,28 @@
-import { combineReducers } from 'redux'
+var actions 			= require('../actions')
+var { combineReducers } = require('redux')
 
-import * as actions from '../actions';
-
-var view = function(state = "myTasks", action) {
+var view = function(state, action) {
+	state = state || "myTasks";
 	if (action.type === actions.ui.navigate.type) {
 		return action.payload;
 	}
 	return state;
 };
 
-var leftMenu = function(state = {}, action) {
+var isServer = function(state, action) {
+	if (state === undefined) {
+		state = false;
+	}
+	if (action.type === actions.ui.pageLoaded.type) return false;
 	return state;
 };
 
-var myTasks = function(state = [], action) {
-	
+var leftMenu = function(state, action) {
+	return state || {};
+};
+
+var myTasks = function(state, action) {
+	state = state || [];
 	if (action.type === actions.api.fetchMyTasks.type 
 		&& action.status === "success") {
 		return action.payload;
@@ -24,9 +32,10 @@ var myTasks = function(state = [], action) {
 };
 
 const rootReducer = combineReducers({
+	isServer,
 	leftMenu,
 	view,
 	myTasks
 });
 
-export default rootReducer
+module.exports = rootReducer;
