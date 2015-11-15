@@ -1,7 +1,11 @@
 module.exports = {
 	view: "myTasks",
 	viewBag: {},
-	myTasks: [],
+	myTasks: {
+		"To Do": [],
+		"In Progress": [],
+		"Done": []
+	},
 	leftMenu: {
 		items: [
 			{

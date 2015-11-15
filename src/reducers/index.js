@@ -1,6 +1,6 @@
 var actions 			= require('../actions')
 var { combineReducers } = require('redux')
-
+var initialState 		= require('../store/initialState')
 var view = function(state, action) {
 	state = state || "myTasks";
 	if (action.type === actions.ui.navigate.type) {
@@ -22,7 +22,7 @@ var leftMenu = function(state, action) {
 };
 
 var myTasks = function(state, action) {
-	state = state || [];
+	state = state || initialState.myTasks;
 	if (action.type === actions.api.fetchMyTasks.type 
 		&& action.status === "success") {
 		return action.payload;

@@ -1,39 +1,55 @@
 var React           	= require('react')
 var mui             	= require('material-ui')
-var { stringToColor } 	= require('../../utils/helpers')
+var helpers			 	= require('../../utils/helpers')
 
 var { Card, CardActions, CardExpandable, 
 	CardHeader, CardText, Avatar, FlatButton } = mui;
 
 class Task extends React.Component {
 
-	renderAvatar(task) {
-		return (
-			<Avatar 
-				style={{color: stringToColor(task.area) }}>
-				{task.area[0]}
-			</Avatar>
-		); 
-	}
-
 	render() {
 		var task = this.props.task;
+		var areaColor = helpers.stringToColor(task.area);
+		var avatar = <Avatar style={{color: areaColor }}>{task.area[0]}</Avatar>
+		
+		var styles = {
+			area: { 
+				margin:"0", 
+				color: areaColor, 
+				fontSize:".9em",
+				//borderTop: "1px solid #eee",
+				//paddingTop: "10px"
+			},
+			title: {
+				fontSize:"1.25em", 
+				margin:"5px 0 0 0", 
+				borderTop:"1px solid #eee", 
+				padding: "20px 0" 
+			},
+			path: { 
+				margin:"10px 0 25px", 
+				fontSize:".9em", 
+				color:"#FF4081"
+			}
+		}
 		return (
 			<Card initiallyExpanded={false} style={{marginTop:"5px"}}>
 				
 				<CardHeader
-				    title={task.title}
-				    subtitle={task.parentTitle}
-				    avatar= { this.renderAvatar(task) }
+				    title={helpers.shortenText(task.title, 32)}
+					titleStyle={{marginTop:"4px"}}
+				    subtitle={helpers.shortenText(task.path, 40)}
+					subtitleStyle={{fontSize:"13px"}}
+				    avatar= { avatar }
 				    actAsExpander={true}
 				    showExpandableButton={true}>
 			  	</CardHeader>
 			  	
-			  	<CardText expandable={true}>
-		  			
-		  			<b style={{marginBottom:"3px"}}>{task.area}</b>
-		  			<br />
-		  			<em>{task.iteration}</em>
+			  	<CardText expandable={true} style={{paddingTop:"0"}}>
+		  			<p style={styles.area}>{task.area}</p>
+		  			<p style={styles.title}>{task.title}</p>
+					<p style={styles.path}>{task.path}</p>
+		  			<span>Iteration: <em>{task.iteration}</em></span>
 
 					<p>
 						<span>State: </span><b>{task.state}</b>
@@ -43,8 +59,8 @@ class Task extends React.Component {
 			  		<p>{task.description}</p>
 			  	</CardText>
 
-				<CardActions expandable={true} style={{textAlign:"center"}}>
-					<FlatButton label="Start" secondary={true}/>
+				<CardActions expandable={true} style={{textAlign:"center", borderTop:"1px solid #eee"}}>
+					<FlatButton label="Start" secondary={true} disabled={task.state !== "To Do"}/>
 					<FlatButton label="Complete" secondary={true}/>
 					<FlatButton label="Remove" primary={true}/>
 				</CardActions>

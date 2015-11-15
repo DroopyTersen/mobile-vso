@@ -4,7 +4,7 @@ var { renderToString }  = require('react-dom/server')
 var { Provider }        = require('react-redux')
 var { createStore }     = require('redux')
 
-var api             = require('../data/api')
+var api             = require('./api')
 var initialState    = require('../store/initialState')
 var rootReducer		= require('../reducers')
 var App             = require('../components/App')
@@ -66,10 +66,11 @@ var renderFullPage = function(html, initialState) {
 			<script>
 				window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}
 			</script>
-
 			<script src="/static/bundle.js"></script>
 		</body>
 	
 	</html>
 	`;
 }
+
+//<script src='https://cdnjs.cloudflare.com/ajax/libs/react/0.14.2/react.min.js'></script>

@@ -1,20 +1,15 @@
 var { indexPage, loginPage } = require('./reactPages');
-var vsoContextFactory = require("../../droopy-vso");
-
+var api = require('./api');
 var createRoutes = function(app, passport) {
-    var vsoHost = "skyline.visualstudio.com";
-    var vso = vsoContextFactory.create(vsoHost);
+
     // React server side rendered pages
-    app.get("/", authorize, indexPage)
+    app.get("/", indexPage);
     app.get("/login", loginPage);
     
     var passportOptions = { 
         successRedirect: "/", 
-        failureRedirect: "/login?failed=true",
-        successFlash: "You're in!",
-        failureFlash: "No soup for you!" 
+        failureRedirect: "/login?failed=true"
     };
-    
     app.post('/login', passport.authenticate('local', passportOptions));
     
     app.get("/signout", (req, res) => {
@@ -22,16 +17,18 @@ var createRoutes = function(app, passport) {
         res.redirect("/login");
     });
     
-    app.get("/api/mytasks", authorize, (req, res) => {
-        vso.setAuthHash(req.user.authHash);
-        vso.projects()
-            .then(items => res.send(items))
-            .catch(error => res.send(error))
-    })
+    app.get("/api/mytasks", (req, res) => {
+        api.getMyTasks(authHash)
+        //api.getMyTasks(req.user.authHash)
+            .then(tasks => res.send(tasks) )
+            .catch(error => res.send(errror))
+    });
     // Middle ware to enforce signin
     function authorize(req, res, next) {
         return req.isAuthenticated() ? next() : res.redirect("/login");
     } 
+    
+    var authHash = new Buffer("DroopyTersen:Rival5sof").toString('base64');
 }
 
 module.exports = createRoutes;

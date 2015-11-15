@@ -5,3 +5,10 @@ exports.stringToColor = function(str) {
 	for (var i = 0, color = "#"; i < 3; color += ("00" + ((hash >> i++ * 8) & 0xFF).toString(16)).slice(-2));
 	return color;
 }
+
+exports.shortenText = function(text, count) {
+	if (text.length > count) {
+		return text.substring(0, count - 3) + "...";
+	}
+	return text;
+}

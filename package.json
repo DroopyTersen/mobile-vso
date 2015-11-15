@@ -3,11 +3,14 @@
   "version": "0.0.0",
   "description": "Mobile web client for Visual Studio Online",
   "scripts": {
-    "start": "node --harmony_destructuring --es-staging ./src/server/server.js"
+    "start": "node --harmony_destructuring --es-staging ./server.js"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/rackt/redux.git"
+  },
+  "browserify-shim": {
+    "react": "global:React"
   },
   "keywords": [
     "react",
@@ -35,7 +38,7 @@
     "node-jsx": "^0.13.3",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
-    "react": "^0.14.0",
+    "react": "^0.14.2",
     "react-dom": "^0.14.0",
     "react-redux": "^4.0.0",
     "react-tap-event-plugin": "^0.2.1",
@@ -43,20 +46,40 @@
     "redux-actions": "^0.8.0",
     "redux-logger": "^2.0.2",
     "redux-promise": "^0.5.0",
-    "redux-thunk": "^0.1.0"
+    "redux-thunk": "^0.1.0",
+    "request-promise": "^1.0.2"
   },
   "devDependencies": {
     "babel-core": "^5.6.18",
     "babel-loader": "^5.1.4",
-    "babel-plugin-react-transform": "^1.1.0",
+    "babel-plugin-react-transform": "^1.1.1",
+    "babel-preset-es2015": "^6.1.18",
+    "babel-preset-react": "^6.1.18",
+    "babel-preset-stage-0": "^6.1.18",
+    "babelify": "^7.2.0",
+    "browserify": "^12.0.1",
+    "browserify-shim": "^3.8.11",
     "expect": "^1.6.0",
     "express": "^4.13.3",
+    "gulp": "^3.9.0",
+    "gulp-browserify": "^0.5.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-gzip": "^1.2.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-streamify": "^1.0.2",
+    "gulp-uglify": "^1.5.1",
+    "livereactload": "^2.1.0",
     "node-libs-browser": "^0.5.2",
     "raw-loader": "^0.5.1",
+    "react-proxy": "^2.0.0",
     "react-transform-catch-errors": "^1.0.0",
     "react-transform-hmr": "^1.0.1",
+    "reactify": "^1.1.1",
     "redbox-react": "^1.1.1",
     "style-loader": "^0.13.0",
+    "uglifyify": "^3.0.1",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.6.0",
     "webpack": "^1.9.11",
     "webpack-dev-middleware": "^1.2.0",
     "webpack-hot-middleware": "^2.2.0"
