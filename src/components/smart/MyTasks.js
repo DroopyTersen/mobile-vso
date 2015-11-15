@@ -10,7 +10,7 @@ var selectState = (state) => {
 class MyTasks extends React.Component {
 	
 	componentDidMount() {
-    	//this.props.dispatch(actions.api.fetchMyTasks());
+    	this.props.dispatch(actions.api.fetchMyDone());
 	}
 	
 	render() {

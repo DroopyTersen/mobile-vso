@@ -41,7 +41,6 @@ class TaskList extends React.Component {
 					{ renderTasks("In Progress") }
 				</Tab>
 				<Tab style={getStyle("last")} label="Done">
-					<p>This feature is comming soon</p>
 					{ renderTasks("Done") }
 				</Tab>
 			</Tabs>

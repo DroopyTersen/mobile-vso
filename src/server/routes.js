@@ -23,6 +23,13 @@ var createRoutes = function(app, passport) {
             .then(tasks => res.send(tasks) )
             .catch(error => res.send(errror))
     });
+
+    app.get("/api/myrecentdone", (req, res) => {
+        api.getMyRecentDone(authHash)
+        //api.getMyTasks(req.user.authHash)
+            .then(tasks => res.send(tasks) )
+            .catch(error => res.send(errror))
+    });
     // Middle ware to enforce signin
     function authorize(req, res, next) {
         return req.isAuthenticated() ? next() : res.redirect("/login");

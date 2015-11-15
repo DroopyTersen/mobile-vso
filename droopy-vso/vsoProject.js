@@ -44,7 +44,8 @@ var populateParentPath = function(workItems) {
 	ids.forEach(id => {
 		workItems[id].path = recursiveGetPath(workItems[id], workItems)
 							.replace(workItems[id].title, "").trim()
-							.replace(/\/$/, ""); // get rid of last slash
+							.replace(/\/$/, "")
+							.trim(); // get rid of last slash
 	})
 	return workItems;
 };
@@ -58,7 +59,7 @@ VsoProject.prototype.query = function(wiqlStr) {
 		.then(self.getItems.bind(self))
 		.then(mapToWorkItemObj)
 		.then(populateParentPath);
-}
+};
 
 VsoProject.prototype.myOpenTasks = function() {
 	return this.query(queries.myOpenTasks)
@@ -68,7 +69,19 @@ VsoProject.prototype.myOpenTasks = function() {
 					.groupBy("state")
 					.value();	
 		});
-}
+};
+
+VsoProject.prototype.myRecentDone = function() {
+	return this.query(queries.myRecentDone)
+	.then(workItems => {
+		return _.chain(workItems)
+				.filter(item => item.workItemType === "Task")
+				.sortBy("closedDate")
+				.reverse()
+				.groupBy("state")
+				.value();	
+	});
+};
 
 VsoProject.prototype.getItems = function(ids) {
 	var url = this.baseUrl.replace(this.name + "/", "") + "/wit/workitems?$expand=all&ids=" + ids.join(",");

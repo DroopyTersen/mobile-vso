@@ -23,10 +23,15 @@ var leftMenu = function(state, action) {
 
 var myTasks = function(state, action) {
 	state = state || initialState.myTasks;
-	if (action.type === actions.api.fetchMyTasks.type 
+	if ((action.type === actions.api.fetchMyTasks.type 
+		|| action.type === actions.api.fetchMyDone.type)
 		&& action.status === "success") {
-		return action.payload;
-	} else {
+		
+		return Object.assign({}, state, action.payload);
+	} 
+
+
+	else {
 		return state;
 	}
 };

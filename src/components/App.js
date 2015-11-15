@@ -1,6 +1,8 @@
 var React 			= require('react')
 var GlobalHeader 	= require('./smart/GlobalHeader')
 var MyTasks 		= require('./smart/MyTasks')
+var HelpView 		= require('./smart/HelpView')
+var FeedbackView 	= require('./smart/FeedbackView')
 var LoginForm 		= require('./login/LoginForm')
 var { connect } 	= require('react-redux')
 var { pageLoaded } 	= require('../actions/uiActions')
@@ -16,7 +18,9 @@ class App extends React.Component {
 		var viewBag = this.props.viewBag || {};
 		var views = {
 			myTasks: <MyTasks viewBag={viewBag} />,
-			login: <LoginForm viewBag={viewBag} />
+			login: <LoginForm viewBag={viewBag} />,
+			help: <HelpView viewBag={viewBag} />,
+			feedback: <FeedbackView viewBag={viewBag} />
 		};		
 		return views[currentView] || `<h1>${currentView} view not found</h1>`	
 	}

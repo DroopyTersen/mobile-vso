@@ -11,6 +11,7 @@ var WorkItem = function(apiObj) {
 	this.parent = getParent(apiObj);
 	//'Microsoft.VSTS.Scheduling.RemainingWork'
 	this.remaining = apiObj.fields['Microsoft.VSTS.Scheduling.RemainingWork'] || "?";
+	this.closedDate = apiObj.fields['Microsoft.VSTS.Common.ClosedDate'];
 };
 
 var getChildren = function(apiObj) {

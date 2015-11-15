@@ -1,10 +1,13 @@
 var api = {};
-var ajax = require("simple-ajax");
+var ajax = require("axios");
 
 api.getMyTasks = function() {
-	return ajax.get("/api/myTasks");
+	return ajax.get("/api/myTasks").then(res => res.data);;
 }; 
 
+api.getMyRecentDone = function() {
+	return ajax.get("/api/myRecentDone").then(res => res.data);
+}; 
 var fakeAsync = (data) => {
 	return new Promise((resolve, reject) => {
 		setTimeout(function() {

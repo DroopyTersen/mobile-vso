@@ -15,11 +15,12 @@ class GlobalHeader extends React.Component {
         super(props);
         this.displayName = 'Global';
         this.handleLeftMenuToggle = this.handleLeftMenuToggle.bind(this);
+        this.leftMenuChange = this.leftMenuChange.bind(this);
     }
 
     leftMenuChange(e, index, item) {
         e.preventDefault();
-        this.props.dispatch(item.view)
+        this.props.dispatch(navigate(item.view))
     }
     
     handleLeftMenuToggle(e) {
@@ -36,6 +37,7 @@ class GlobalHeader extends React.Component {
                         ref='leftNav'
                         docked={false}
                         menuItems={this.props.leftMenu.items}
+                        onChange={this.leftMenuChange}
                     />            
         } return "";
     }

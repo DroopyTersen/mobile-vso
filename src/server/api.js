@@ -16,6 +16,19 @@ api.getMyTasks = function(authHash) {
 		});
 }; 
 
+api.getMyRecentDone = function(authHash) {
+	authHash = authHash || new Buffer("DroopyTersen:Rival5sof").toString('base64');
+	var vso = vsoFactory.create(authHash);
+	var project = vso.projects("Skyline-Portals")
+	
+	return project.myRecentDone()
+		.then(items => items )
+		.catch(function(err) {
+			console.log(err);
+			return JSON.stringify(err);
+		});
+}; 
+
 var fakeAsync = (data) => {
 	return new Promise((resolve, reject) => {
 		setTimeout(function() {
