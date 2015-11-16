@@ -27,7 +27,7 @@ class TaskList extends React.Component {
 		var tasks = this.props.tasks;
 		var renderTasks = (state) => { 
 			if (tasks[state]) {
-				return tasks[state].map(t => <Task task={t} /> );
+				return tasks[state].map(t => <Task task={t} updateTask={this.props.updateTask} /> );
 			}
 			return "";
 		} 

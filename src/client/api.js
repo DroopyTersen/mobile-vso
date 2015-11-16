@@ -8,12 +8,12 @@ api.getMyTasks = function() {
 api.getMyRecentDone = function() {
 	return ajax.get("/api/myRecentDone").then(res => res.data);
 }; 
-var fakeAsync = (data) => {
-	return new Promise((resolve, reject) => {
-		setTimeout(function() {
-			resolve(data);
-		},50);
-	})
-}; 
+
+api.setTaskState = function(task, state) {
+	return ajax.get(`/api/tasks/${task.id}/setState/${state}`)
+			.then(res => res.data);
+
+}
+
 
 module.exports = api;

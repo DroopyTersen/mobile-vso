@@ -1,5 +1,5 @@
 var WorkItem = function(apiObj) {
-	this.id = apiObj.fields["System.Id"];
+	this.id = apiObj.id;
 	this.area = apiObj.fields["System.NodeName"];
 	this.iteration = apiObj.fields["System.IterationPath"];
 	this.workItemType = apiObj.fields["System.WorkItemType"];
@@ -9,7 +9,6 @@ var WorkItem = function(apiObj) {
 	this.priority = apiObj.fields["Microsoft.VSTS.Common.Priority"];
 	this.children = getChildren(apiObj);
 	this.parent = getParent(apiObj);
-	//'Microsoft.VSTS.Scheduling.RemainingWork'
 	this.remaining = apiObj.fields['Microsoft.VSTS.Scheduling.RemainingWork'] || "?";
 	this.closedDate = apiObj.fields['Microsoft.VSTS.Common.ClosedDate'];
 };

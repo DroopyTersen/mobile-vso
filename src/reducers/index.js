@@ -1,6 +1,8 @@
 var actions 			= require('../actions')
 var { combineReducers } = require('redux')
 var initialState 		= require('../store/initialState')
+var myTasks 			= require('./myTasksReducer')
+
 var view = function(state, action) {
 	state = state || "myTasks";
 	if (action.type === actions.ui.navigate.type) {
@@ -19,21 +21,6 @@ var viewBag = function(state, action) {
 
 var leftMenu = function(state, action) {
 	return state || {};
-};
-
-var myTasks = function(state, action) {
-	state = state || initialState.myTasks;
-	if ((action.type === actions.api.fetchMyTasks.type 
-		|| action.type === actions.api.fetchMyDone.type)
-		&& action.status === "success") {
-		
-		return Object.assign({}, state, action.payload);
-	} 
-
-
-	else {
-		return state;
-	}
 };
 
 const rootReducer = combineReducers({

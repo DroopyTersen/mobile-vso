@@ -1,4 +1,4 @@
-import React from 'react';
+var React = require("react");
 
 class HelpView extends React.Component {
     constructor(props) {
@@ -10,4 +10,5 @@ class HelpView extends React.Component {
     }
 }
 
-export default HelpView;
+module.exports = HelpView;
+//https://i3-vso.sec.s-msft.com/integrate/get-started/auth/enableCredentials.png

@@ -32,7 +32,7 @@ class App extends React.Component {
   	render() {
 	  	return (
 		  	<div id="app-container">
-					<GlobalHeader title="Mobile VSO" />
+					<GlobalHeader title="mobileVSO" />
 					{this.renderView()}
 		  	</div>
 		);

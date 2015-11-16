@@ -1,4 +1,4 @@
-import React from 'react';
+var React = require("react");
 
 class FeedbackView extends React.Component {
     constructor(props) {
@@ -10,4 +10,4 @@ class FeedbackView extends React.Component {
     }
 }
 
-export default FeedbackView;
+module.exports = FeedbackView;

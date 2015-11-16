@@ -1,17 +1,42 @@
-var React           	= require('react')
-var mui             	= require('material-ui')
-var helpers			 	= require('../../utils/helpers')
-
+var React  		= require('react')
+var mui         = require('material-ui')
+var helpers		= require('../../utils/helpers')
+var moment		= require('moment');
 var { Card, CardActions, CardExpandable, 
 	CardHeader, CardText, Avatar, FlatButton } = mui;
 
 class Task extends React.Component {
+	
+    constructor(props) {
+        super(props);
+        this.displayName = 'Task';
+        this.handleButtonClick = this.handleButtonClick.bind(this);
+    }
 
+	handleButtonClick(e) {
+		var states = {
+			"Start": { state: "In Progress" },
+			"Complete": { state: "Done" },
+			"Remove": { state: "Removed" }
+		};
+		e.preventDefault();
+		if (states[e.target.textContent]) {
+			this.props.updateTask(this.props.task, states[e.target.textContent]);
+		}
+	}
+	
 	render() {
 		var task = this.props.task;
+		if (!task) return "";
 		var areaColor = helpers.stringToColor(task.area);
 		var avatar = <Avatar style={{color: areaColor }}>{task.area[0]}</Avatar>
 		
+		var bottomRight = "";
+		if (task.state === "Done") {
+			bottomRight = "Closed " + moment(task.closedDate).fromNow() 
+		} else {
+			bottomRight = <span><b>{task.remaining + ' hours '}</b><i className="fa fa-hourglass-half"></i></span>
+		}
 		var styles = {
 			area: { 
 				margin:"0", 
@@ -53,16 +78,27 @@ class Task extends React.Component {
 
 					<p>
 						<span>State: </span><b>{task.state}</b>
-						<span style={{float:"right"}}><b>{task.remaining} hours</b></span>
+						<span style={{float:"right"}}>{bottomRight}</span>
 					</p>
 			  		
 			  		<p>{task.description}</p>
 			  	</CardText>
 
 				<CardActions expandable={true} style={{textAlign:"center", borderTop:"1px solid #eee"}}>
-					<FlatButton label="Start" secondary={true} disabled={task.state !== "To Do"}/>
-					<FlatButton label="Complete" secondary={true}/>
-					<FlatButton label="Remove" primary={true}/>
+					<FlatButton label="Start" 
+						secondary={true} 
+						disabled={task.state !== "To Do"}
+						onClick={this.handleButtonClick}
+					/>
+					<FlatButton label="Complete" 						
+						secondary={true} 
+						disabled={task.state === "Done"}
+						onClick={this.handleButtonClick}
+					/>
+					<FlatButton label="Remove" 
+						primary={true}
+						onClick={this.handleButtonClick}
+					/>
 				</CardActions>
 			 
 			</Card>

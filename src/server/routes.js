@@ -3,7 +3,7 @@ var api = require('./api');
 var createRoutes = function(app, passport) {
 
     // React server side rendered pages
-    app.get("/", indexPage);
+    app.get("/", authorize, indexPage);
     app.get("/login", loginPage);
     
     var passportOptions = { 
@@ -18,17 +18,24 @@ var createRoutes = function(app, passport) {
     });
     
     app.get("/api/mytasks", (req, res) => {
-        api.getMyTasks(authHash)
-        //api.getMyTasks(req.user.authHash)
+        //api.getMyTasks(authHash)
+        api.getMyTasks(req.user.authHash)
             .then(tasks => res.send(tasks) )
-            .catch(error => res.send(errror))
+            .catch(err => res.send(err))
     });
 
     app.get("/api/myrecentdone", (req, res) => {
-        api.getMyRecentDone(authHash)
-        //api.getMyTasks(req.user.authHash)
+        //api.getMyRecentDone(authHash)
+        api.getMyRecentDone(req.user.authHash)
             .then(tasks => res.send(tasks) )
-            .catch(error => res.send(errror))
+            .catch(err => res.send(err))
+    });
+
+    app.get("/api/tasks/:id/setState/:state", (req, res) => {
+        api.setTaskState(authHash, req.params.id, req.params.state)
+        //api.setTaskState(req.user.authHash, req.params.id, req.params.state)
+            .then(apiRes => res.send(apiRes))
+            .catch(err => res.send(err))
     });
     // Middle ware to enforce signin
     function authorize(req, res, next) {

@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "description": "Mobile web client for Visual Studio Online",
   "scripts": {
-    "start": "node --harmony_destructuring --es-staging ./server.js"
+    "start": "node --harmony_destructuring --es-staging ./server.js",
+    "prod": "node --harmony_destructuring --es-staging ./server.prod.js"
   },
   "repository": {
     "type": "git",
