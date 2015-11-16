@@ -12,24 +12,37 @@ var myTasksReducer = function(state, action) {
 		
 		return Object.assign({}, state, action.payload);
 	} 
-	// if it was an update, we need to see if the task
+	// SET TO CURRENT ITERATION
+	else if (action.type === actions.api.setTaskIteration.type 
+		&& action.status === "success") {
+		var tasks = Object.assign({}, state);
+		var newTask = action.payload;
+		for (var i = 0; i < tasks[newTask.state].length; i++) {
+			if (tasks[newTask.state][i].id === newTask.id) {
+				tasks[newTask.state][i] = Object.assign(tasks[newTask.state][i], newTask);
+				break;
+			}
+		}
+		return tasks;
+	}
+	// SET STATE
 	else if (action.type === actions.api.setTaskState.type 
 		&& action.status === "success") {
 		var tasks = Object.assign({}, state);
-		var task = action.payload;
-		//remove it 
-		if (task.state === "In Progress") {
-			var oldTask = tasks["To Do"].find(t => t.id === task.id);
-			task = Object.assign(oldTask, task);
-			tasks["To Do"] = tasks["To Do"].filter(t => t.id !== task.id);
-		} else if (task.state === "Done") {
-			//tasks["In Progress"] = [];
-			var oldTask = tasks["In Progress"].find(t => t.id === task.id);
-			task = Object.assign(oldTask, task);
-			tasks["In Progress"] = tasks["In Progress"].filter(t => t.id !== task.id);
+		var newTask = action.payload;
+		var oldTask = null;
+		// Remove the old one
+		// For each key (state) check if there is a matching task
+		for (var state of Object.keys(tasks)) {
+			oldTask = tasks[state].find(t => t.id === newTask.id);
+			//if a task was found join its props with the new task and then remove it from that state's array
+			if (oldTask) {
+				newTask = Object.assign({}, oldTask, newTask);
+				tasks[state] = tasks[state].filter(t => t.id !== newTask.id);
+			}
 		}
 		// insert it at top of the new state
-		tasks[task.state] = [task, ...tasks["Done"]];
+		tasks[newTask.state] = [newTask, ...tasks[newTask.state]];
 		//.unshift(task);
 		return tasks;
 	}

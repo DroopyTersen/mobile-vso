@@ -15,7 +15,7 @@ var setState = function(prevState, newState) {
 
 exports.indexPage = function(req, res) {
 	// Get tasks
-	api.getMyTasks().then( tasks => {
+	api.getMyTasks(req.user.authHash).then( tasks => {
 		res.send(serverSideReact({ 
 			view: "myTasks", 
 			myTasks: tasks
@@ -63,11 +63,17 @@ var renderFullPage = function(html, initialState) {
 		</head>
 		
 		<body>
-			<div id="root">${html}</div>
+			<div id="root" style='display:none'>${html}</div>
 			<script>
 				window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}
 			</script>
+			<script>
+				setTimeout(function() {
+					document.getElementById("root").style.display = 'block';
+				}, 350);
+			</script>
 			<script src="/static/bundle.js"></script>
+
 		</body>
 	
 	</html>

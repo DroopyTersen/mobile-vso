@@ -3,7 +3,8 @@ var mui         = require('material-ui')
 var helpers		= require('../../utils/helpers')
 var moment		= require('moment');
 var { Card, CardActions, CardExpandable, 
-	CardHeader, CardText, Avatar, FlatButton } = mui;
+	CardHeader, CardText, Avatar, FlatButton, 
+	IconButton } = mui;
 
 class Task extends React.Component {
 	
@@ -11,6 +12,12 @@ class Task extends React.Component {
         super(props);
         this.displayName = 'Task';
         this.handleButtonClick = this.handleButtonClick.bind(this);
+        this.handleIterationClick = this.handleIterationClick.bind(this);
+    }
+
+    handleIterationClick(e) {
+    	e.preventDefault();
+    	this.props.setIteration(this.props.task);
     }
 
 	handleButtonClick(e) {
@@ -74,7 +81,15 @@ class Task extends React.Component {
 		  			<p style={styles.area}>{task.area}</p>
 		  			<p style={styles.title}>{task.title}</p>
 					<p style={styles.path}>{task.path}</p>
-		  			<span>Iteration: <em>{task.iteration}</em></span>
+		  			<span style={{position:"relative", left:"-10px"}}>
+						<IconButton 
+							iconClassName="fa fa-calendar-check-o" 
+							tooltip="Set to current iteration"
+							onClick={this.handleIterationClick}
+							tooltipPosition="top-right"
+						/>
+		  				<em>{task.iteration}</em>
+		  			</span>
 
 					<p>
 						<span>State: </span><b>{task.state}</b>

@@ -17,26 +17,30 @@ var createRoutes = function(app, passport) {
         res.redirect("/login");
     });
     
-    app.get("/api/mytasks", (req, res) => {
-        //api.getMyTasks(authHash)
+    app.get("/api/mytasks", authorize, (req, res) => {
         api.getMyTasks(req.user.authHash)
             .then(tasks => res.send(tasks) )
             .catch(err => res.send(err))
     });
 
-    app.get("/api/myrecentdone", (req, res) => {
-        //api.getMyRecentDone(authHash)
+    app.get("/api/myrecentdone", authorize, (req, res) => {
         api.getMyRecentDone(req.user.authHash)
             .then(tasks => res.send(tasks) )
             .catch(err => res.send(err))
     });
 
-    app.get("/api/tasks/:id/setState/:state", (req, res) => {
-        api.setTaskState(authHash, req.params.id, req.params.state)
-        //api.setTaskState(req.user.authHash, req.params.id, req.params.state)
+    app.get("/api/tasks/:id/setState/:state", authorize, (req, res) => {
+        api.setTaskState(req.user.authHash, req.params.id, req.params.state)
             .then(apiRes => res.send(apiRes))
             .catch(err => res.send(err))
     });
+
+    app.get("/api/tasks/:id/setIteration/:project", authorize, (req, res) => {
+        api.setTaskIteration(req.user.authHash, req.params.id, req.params.project)
+            .then(apiRes => res.send(apiRes))
+            .catch(err => res.send(err))
+    });
+
     // Middle ware to enforce signin
     function authorize(req, res, next) {
         return req.isAuthenticated() ? next() : res.redirect("/login");

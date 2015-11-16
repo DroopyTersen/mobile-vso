@@ -3,10 +3,10 @@ var mui             = require('material-ui')
 var TopBar          = require('../header/TopBar');
 var { connect }     = require('react-redux')
 var { navigate }    = require('../../actions/uiActions');
-var { LeftNav }     = require('material-ui');
+var { LeftNav }     = mui;
 
 var selectState = function(state) {
-	return { leftMenu: state.leftMenu, viewBag: state.viewBag };
+	return { leftMenu: state.leftMenu, view: state.view, viewBag: state.viewBag };
 };
 
 class GlobalHeader extends React.Component {
@@ -31,8 +31,7 @@ class GlobalHeader extends React.Component {
     }
 
     renderLeftNav() {
-        console.log(this.props);
-        if (!this.props.viewBag.isServer) {
+        if (!this.props.viewBag.isServer && this.props.view !== "login") {
             return <LeftNav
                         ref='leftNav'
                         docked={false}

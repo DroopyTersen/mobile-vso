@@ -24,14 +24,19 @@ class TaskList extends React.Component {
 			
 			return styles;
 		}
+
+		var createTask = (task) => {
+			return (
+				<Task task={task} 
+					updateTask={this.props.updateTask} 
+					setIteration={this.props.setIteration} 
+				/> 
+			);
+		};
+
 		var tasks = this.props.tasks;
-		var renderTasks = (state) => { 
-			if (tasks[state]) {
-				return tasks[state].map(t => <Task task={t} updateTask={this.props.updateTask} /> );
-			}
-			return "";
-		} 
-		var tabsStyles = "";
+		var renderTasks = (state) => (tasks[state]) ? tasks[state].map(t => createTask(t)) : "";
+
         return (
 			<Tabs tabItemContainerStyle={{backgroundColor:"#fff"}}>
 				<Tab style={getStyle("first")} label="To Do" >

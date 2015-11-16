@@ -15,7 +15,13 @@
         	.then(projects => {
                 return (projects && projects.value) ? done(null, { authHash }) : done(null, false);
             })
-        	.catch(error => done(error, false) )
+        	.catch(error => {
+                if (error.statusCode === 401) {
+                    //Valid user but invalid pwd
+                    return done(null, false);
+                }
+                return done(error, false);
+            })
         
     }
     

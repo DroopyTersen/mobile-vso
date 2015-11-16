@@ -11,6 +11,7 @@ class MyTasks extends React.Component {
 	constructor() {
 		super()
 		this.updateTask = this.updateTask.bind(this);
+		this.setIteration = this.setIteration.bind(this);
 	}
 	componentDidMount() {
     	this.props.dispatch(actions.api.fetchMyDone());
@@ -21,11 +22,17 @@ class MyTasks extends React.Component {
 			this.props.dispatch(actions.api.setTaskState(task, updates.state));	
 		}
 	}
-	
+	setIteration(task) {
+		this.props.dispatch(actions.api.setTaskIteration(task))
+	}
 	render() {
 		return (
 		    <div id='my-tasks-view'>
-		        <TaskList tasks={this.props.tasks} updateTask={this.updateTask} />   
+		        <TaskList 
+		        	tasks={this.props.tasks}  
+		        	updateTask={this.updateTask} 
+		        	setIteration={this.setIteration}
+	        	/>   
 		    </div>
 		);
   	}

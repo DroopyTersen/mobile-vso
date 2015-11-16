@@ -1,5 +1,6 @@
 var WorkItem = function(apiObj) {
 	this.id = apiObj.id;
+	this.project = apiObj.fields["System.AreaLevel1"];
 	this.area = apiObj.fields["System.NodeName"];
 	this.iteration = apiObj.fields["System.IterationPath"];
 	this.workItemType = apiObj.fields["System.WorkItemType"];

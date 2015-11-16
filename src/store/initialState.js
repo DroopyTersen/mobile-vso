@@ -1,3 +1,4 @@
+var React = require("react");
 module.exports = {
 	view: "myTasks",
 	viewBag: {},
@@ -9,7 +10,7 @@ module.exports = {
 	leftMenu: {
 		items: [
 			{
-				view: "myTasks", 
+				view: "myTasks",
 				text: "My Tasks"
 			},			
 			{

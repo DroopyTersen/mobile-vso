@@ -41,4 +41,9 @@ VsoProject.prototype.myRecentDone = function() {
 	});
 };
 
+VsoProject.prototype.currentIteration = function() {
+	var url = this.baseUrl + "/work/teamsettings/iterations?$timeframe=current&api-version=v2.0";
+	return this._ctx.getJSON(url).then(data => data.value[0]);
+}
+
 module.exports = VsoProject;
