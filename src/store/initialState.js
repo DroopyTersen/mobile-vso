@@ -2,6 +2,15 @@ var React = require("react");
 module.exports = {
 	view: "myTasks",
 	viewBag: {},
+	vso: {
+		host: "skyline.visualstudio.com",
+		project: "",
+		projectOptions: ["Skyline-Portals"],
+		hostOptions: [ 
+			"skyline.visualstudio.com",
+			"jci.visualstudio.com"
+		]
+	},
 	myTasks: {
 		"To Do": [],
 		"In Progress": [],

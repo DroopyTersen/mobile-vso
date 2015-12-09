@@ -11,6 +11,11 @@ var view = function(state, action) {
 	return state;
 };
 
+var vso = function(state, action) {
+	state = state || initialState.vso;
+
+	return state;
+}
 var viewBag = function(state, action) {
 	state = state || {};
 	if (action.type === actions.ui.pageLoaded.type) {
@@ -27,7 +32,8 @@ const rootReducer = combineReducers({
 	viewBag,
 	leftMenu,
 	view,
-	myTasks
+	myTasks,
+	vso
 });
 
 module.exports = rootReducer;

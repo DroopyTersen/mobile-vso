@@ -4,8 +4,8 @@ var VsoTask = require("./vsoTask");
 var http = require('./http');
 
 
-// var _hostname = "skyline.visualstudio.com";
-var _hostname = "jci.visualstudio.com/";
+var _hostname = "skyline.visualstudio.com";
+// var _hostname = "jci.visualstudio.com/";
 var _baseUrl = `https://${_hostname}/defaultcollection`;
 var setHost = function(host) {
 	_hostname = host;
