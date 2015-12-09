@@ -22,6 +22,8 @@ exports.post = function(url, authHash, body) {
 	options.method = "POST";
 	return request(options);
 };
+
+//Not using 'json:true' option so need to stringify and parse JSON
 exports.patch = function(url, authHash, body) {
 	var options = {
 		url: url,
